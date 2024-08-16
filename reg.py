@@ -63,5 +63,18 @@ def main():
         print(f"Error: {unzip_script} not found.")
         sys.exit(1)
 
+    # 执行todo.py脚本
+    todo_script = os.path.join(openjlc_dir, 'workspace', 'todo.py')
+    if os.path.exists(todo_script):
+        try:
+            subprocess.run(['python', todo_script], check=True)
+            print(f"Todo script executed successfully.")
+        except subprocess.CalledProcessError as e:
+            print(f"Error executing todo script: {e}")
+            sys.exit(1)
+    else:
+        print(f"Error: {todo_script} not found.")
+        sys.exit(1)
+
 if __name__ == "__main__":
     main()

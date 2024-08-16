@@ -1,12 +1,19 @@
 import os
 from datetime import datetime
 import random
+import sys
+
+# 获取OpenJLC环境变量
+openjlc_dir = os.environ.get("OpenJLC")
+if not openjlc_dir:
+    print("Error: OpenJLC environment variable is not set.")
+    sys.exit(1)
 
 # 定义要创建的文件夹和文件路径
-output_dir = os.path.join(os.getcwd(), 'output')
+output_dir = os.path.join(openjlc_dir, 'output')
 output_file = os.path.join(output_dir, 'PCB下单必读.txt')
 
-config_dir = os.path.join(os.getcwd(), 'config')
+config_dir = os.path.join(openjlc_dir, 'config')
 header_file = os.path.join(config_dir, 'Header.yaml')
 
 # 检查是否存在output文件夹，如果不存在则创建
