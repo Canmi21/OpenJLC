@@ -7,4 +7,4 @@ Windows Registry Editor Version 5.00
 @="Open with OpenJLC"
 
 [HKEY_CLASSES_ROOT\SystemFileAssociations\.zip\shell\OpenJLC\command]
-@="\"D:\\Desktop\\OpenJLC\\OpenJLC.EXE\" \"%1\""
+@="\"D:\\Desktop\\OpenJLC\\OpenJLC.cmd\" \"%1\""

@@ -27,7 +27,7 @@ def main():
         sys.exit(1)
 
     # 延时2.1秒
-    time.sleep(2.1)
+    time.sleep(0.5)
 
     # 定义PCB下单必读.txt的路径
     output_file = os.path.join(openjlc_dir, 'output', 'PCB下单必读.txt')
@@ -48,17 +48,17 @@ def main():
     # 等待0.5秒
     time.sleep(0.5)
 
-    # 打开convert.py并执行
-    convert_script = os.path.join(openjlc_dir, 'workspace', 'convert.py')
-    if os.path.exists(convert_script):
+    # 打开identification.py并执行
+    identification_script = os.path.join(openjlc_dir, 'workspace', 'identification.py')
+    if os.path.exists(identification_script):
         try:
-            subprocess.run(['python', convert_script], check=True)
-            print(f"Convert script executed successfully.")
+            subprocess.run(['python', identification_script], check=True)
+            print(f"Identification script executed successfully.")
         except subprocess.CalledProcessError as e:
-            print(f"Error executing convert script: {e}")
+            print(f"Error executing identification script: {e}")
             sys.exit(1)
     else:
-        print(f"Error: {convert_script} not found.")
+        print(f"Error: {identification_script} not found.")
         sys.exit(1)
 
     print("Todo script completed.")

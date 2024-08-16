@@ -1,26 +1,21 @@
+Edge: '1'
 FileName:
-  Outline: Gerber_BoardOutlineLayer.GKO
-  NPTH: "Drill_NPTH_Through.DRL"
-  PTH: "Drill_PTH_Through.DRL"
-  PTH_Via: "Drill_PTH_Through_Via.DRL"
-  Top_Cu: Gerber_TopLayer.GTL
   Bottom_Cu: Gerber_BottomLayer.GBL
+  Bottom_SilkScreen: Gerber_BottomSilkscreenLayer.GBO
+  Bottom_SolderMask: Gerber_BottomSolderMaskLayer.GBS
+  Bottom_SolderPaste: Gerber_BottomPasteMaskLayer.GBP
+  Drill_Npth: Drill_NPTH_Through.DRL
+  Drill_Pth: Drill_PTH_Through.DRL
   InnerLayer1_Cu: Gerber_InnerLayer1.G1
   InnerLayer2_Cu: Gerber_InnerLayer2.G2
   InnerLayer3_Cu: Gerber_InnerLayer3.G3
   InnerLayer4_Cu: Gerber_InnerLayer4.G4
+  NPTH: Drill_NPTH_Through.DRL
+  Outline: Gerber_BoardOutlineLayer.GKO
+  PTH: Drill_PTH_Through.DRL
+  PTH_Via: Drill_PTH_Through_Via.DRL
+  Top_Cu: Gerber_TopLayer.GTL
   Top_SilkScreen: Gerber_TopSilkscreenLayer.GTO
-  Bottom_SilkScreen: Gerber_BottomSilkscreenLayer.GBO
   Top_SolderMask: Gerber_TopSolderMaskLayer.GTS
-  Bottom_SolderMask: Gerber_BottomSolderMaskLayer.GBS
   Top_SolderPaste: Gerber_TopPasteMaskLayer.GTP
-  Bottom_SolderPaste: Gerber_BottomPasteMaskLayer.GBP
-  Drill_Pth: Drill_PTH_Through.DRL
-  Drill_Npth: Drill_NPTH_Through.DRL
-
 Rule: AD
-#Rule: KiCAD
-
-Edge: 1
-#Edge: 2
-#Edge: 3

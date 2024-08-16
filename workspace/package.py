@@ -17,8 +17,8 @@ def main():
     report_file = os.path.join(openjlc_dir, 'workspace', 'report.yaml')
     package_yaml = os.path.join(openjlc_dir, 'workspace', 'package.yaml')
 
-    # 等待0.5秒
-    time.sleep(0.5)
+    # 等待0.3秒
+    time.sleep(0.3)
 
     # 确保工作流目录存在
     if not os.path.exists(workflow_dir):
@@ -40,6 +40,17 @@ def main():
     else:
         print(f"{report_file} does not exist.")
         return
+
+    # 根据Source字段确定名字
+    source = report_data.get('Source', 'Unknown')
+    if source == 'LCEDA':
+        name_str = "LC"
+    elif source == 'AD':
+        name_str = "AD"
+    elif source == 'KiCAD':
+        name_str = "Ki"
+    else:
+        name_str = "Err"
 
     # 打包workflow目录下的所有文件到package.zip
     package_zip = os.path.join(openjlc_dir, 'workspace', 'package.zip')
@@ -70,7 +81,7 @@ def main():
 
     # 修改文件名
     base_name = os.path.splitext(package_data['name'])[0]
-    new_package_name = f"{base_name}-{layer_str}.zip"
+    new_package_name = f"{base_name}-{name_str}-{layer_str}.zip"
     new_package_path = os.path.join(openjlc_dir, 'workspace', new_package_name)
 
     # 重命名并复制文件

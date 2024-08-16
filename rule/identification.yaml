@@ -1,0 +1,12 @@
+TargetEDA: Auto
+#TargetEDA: Altium_Designer
+#TargetEDA: KiCAD
+#TargetEDA: LCEDA
+
+Edge: Auto
+#Edge: GKO
+#Edge: Edge_Cuts
+#Edge: GM1
+#Edge: GM13
+
+IdentificationFile: (?i)(\.gm1|\.gko|\.gm13|Edge_Cuts|-Edge_Cuts)

@@ -1,0 +1,8 @@
+TargetEdge: GKO
+#TargetEdge: Edge_Cuts
+#TargetEdge: GM1
+#TargetEdge: GM13
+EDA: LCEDA
+#EDA: Altium_Designer
+#EDA: KiCAD
+#EDA: LCEDA
