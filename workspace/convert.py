@@ -2,6 +2,8 @@ import yaml
 import os
 import re
 import shutil
+from datetime import datetime
+import subprocess  # 用于执行package.py
 
 # 获取OpenJLC路径
 openjlc_dir = os.environ.get("OpenJLC")
@@ -115,6 +117,14 @@ if os.path.exists(DestDir):
 os.makedirs(DestDir)
 print(f"Created destination directory: {DestDir}")
 
+# 创建报告字典
+report = {
+    "Source": rule_type,
+    "Date": datetime.now().strftime("%Y-%m-%d"),
+    "Time": datetime.now().strftime("%H:%M:%S"),
+    "Edge": "Yes" if Rule.get("Outline") else "No"
+}
+
 # 检验文件是否齐全/重复匹配
 for key, value in Rule.items():
     matchFile = []
@@ -128,11 +138,13 @@ for key, value in Rule.items():
 
     if len(matchFile) < 1:
         print(f"{key} match failed, skipping this file.")
+        report[key] = "No"
         continue
     elif len(matchFile) > 1:
         raise Exception(f"{key} multiple matches found: {', '.join(matchFile)}")
     else:
         print(f"{key} -> {matchFile[0]}")
+        report[key] = "Yes"
 
 # 改名和加头操作
 for key, value in Rule.items():
@@ -158,3 +170,26 @@ for key, value in Rule.items():
             exit(1)
     else:
         print(f"File matching rule '{key}' not found.")
+        report[key] = "No"
+
+# 将报告写入 report.yaml 文件
+report_file_path = os.path.join(openjlc_dir, "workspace", "report.yaml")
+try:
+    with open(report_file_path, "w", encoding="utf-8") as report_file:
+        yaml.dump(report, report_file, default_flow_style=False, allow_unicode=True)
+    print(f"Report generated successfully at {report_file_path}")
+except Exception as e:
+    print(f"Error generating report: {e}")
+
+# 执行package.py
+package_script = os.path.join(openjlc_dir, 'workspace', 'package.py')
+if os.path.exists(package_script):
+    try:
+        subprocess.run(['python', package_script], check=True)
+        print(f"Package script executed successfully.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error executing package script: {e}")
+        exit(1)
+else:
+    print(f"Error: {package_script} not found.")
+    exit(1)

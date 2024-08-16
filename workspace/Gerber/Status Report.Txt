@@ -1,12 +1,16 @@
-Output: NC Drill Files
-Type  : NC Drill
-From  : Project [ÂÁ»ù°å¼ÓÈÈ.PrjPcb]
-   Generated File[ÆÁÄ»_±àÂëÆ÷.TXT]
-   Generated File[ÆÁÄ»_±àÂëÆ÷.LDP]
-   Generated File[ÆÁÄ»_±àÂëÆ÷.DRR]
+Output: Gerber Files
+Type  : Gerber
+From  : Variant [[No Variations]] of Project [ÂÁ»ù°å¼ÓÈÈ.PrjPcb]
+   Generated File[µ×°å.GTO]
+   Generated File[µ×°å.GTS]
+   Generated File[µ×°å.GTL]
+   Generated File[µ×°å.GM1]
+   Generated File[µ×°å.RUL]
+   Generated File[µ×°å.EXTREP]
+   Generated File[µ×°å.REP]
 
 
-Files Generated   : 3
+Files Generated   : 7
 Documents Printed : 0
 
-Finished Output Generation At 1:52:43 On 2022/10/23
+Finished Output Generation At 12:52:51 On 2022/10/19

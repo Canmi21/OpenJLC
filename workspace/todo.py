@@ -45,8 +45,22 @@ def main():
         print(f"Error: {output_file} not found.")
         sys.exit(1)
 
-    # 等待3秒
-    time.sleep(3)
+    # 等待0.5秒
+    time.sleep(0.5)
+
+    # 打开convert.py并执行
+    convert_script = os.path.join(openjlc_dir, 'workspace', 'convert.py')
+    if os.path.exists(convert_script):
+        try:
+            subprocess.run(['python', convert_script], check=True)
+            print(f"Convert script executed successfully.")
+        except subprocess.CalledProcessError as e:
+            print(f"Error executing convert script: {e}")
+            sys.exit(1)
+    else:
+        print(f"Error: {convert_script} not found.")
+        sys.exit(1)
+
     print("Todo script completed.")
 
 if __name__ == "__main__":

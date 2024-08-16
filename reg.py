@@ -2,6 +2,7 @@ import sys
 import os
 import shutil
 import subprocess
+import yaml
 
 def main():
     # 获取OpenJLC路径
@@ -19,6 +20,32 @@ def main():
 
     zip_file_path = sys.argv[1]
     print(f"ZIP file path: {zip_file_path}")
+
+    # 生成package.yaml报告，尽可能提前执行
+    package_report_path = os.path.join(openjlc_dir, 'workspace', 'package.yaml')
+
+    # 删除旧的package.yaml文件（如果存在）
+    if os.path.exists(package_report_path):
+        try:
+            os.remove(package_report_path)
+            print(f"Deleted old package report: {package_report_path}")
+        except Exception as e:
+            print(f"Error deleting old package report: {e}")
+            sys.exit(1)
+
+    # 定义报告内容
+    package_report_content = {
+        'original': os.path.dirname(zip_file_path).replace("\\", "/") + "/",
+        'name': os.path.basename(zip_file_path)  # 使用.zip文件的原始名称
+    }
+
+    try:
+        with open(package_report_path, 'w', encoding='utf-8') as report_file:
+            yaml.dump(package_report_content, report_file, default_flow_style=False, allow_unicode=True)
+        print(f"Package report generated at {package_report_path}")
+    except Exception as e:
+        print(f"Error generating package report: {e}")
+        sys.exit(1)
 
     # 定义Gerber目录
     gerber_dir = os.path.join(openjlc_dir, 'workspace', 'Gerber')

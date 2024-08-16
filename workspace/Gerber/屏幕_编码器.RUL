@@ -1,5 +1,0 @@
-DRC Rules Export File for PCB: D:\Projects\Aluminum_Heat_Bed\Hardware\ÆÁÄ»_±àÂëÆ÷.PcbDoc
-RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
-RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=0.05
-RuleKind=Width|RuleName=Width|Scope=Board|Minimum=5.00
-RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=5.00
