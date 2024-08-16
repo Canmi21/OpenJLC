@@ -20,11 +20,26 @@ def main():
     zip_file_path = sys.argv[1]
     print(f"ZIP file path: {zip_file_path}")
 
-    # 确保目标文件夹存在
+    # 定义Gerber目录
     gerber_dir = os.path.join(openjlc_dir, 'workspace', 'Gerber')
+    
+    # 确保目标文件夹存在
     if not os.path.exists(gerber_dir):
         os.makedirs(gerber_dir)
     print(f"Gerber directory: {gerber_dir}")
+
+    # 清空Gerber目录中的所有文件
+    try:
+        for filename in os.listdir(gerber_dir):
+            file_path = os.path.join(gerber_dir, filename)
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)  # 删除文件或符号链接
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)  # 删除目录
+        print(f"Cleared Gerber directory: {gerber_dir}")
+    except Exception as e:
+        print(f"Error clearing Gerber directory: {e}")
+        sys.exit(1)
 
     # 复制选中的.zip文件到Gerber目录
     destination = os.path.join(gerber_dir, os.path.basename(zip_file_path))
