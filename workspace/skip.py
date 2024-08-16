@@ -16,6 +16,7 @@ def main():
     gerber_dir = os.path.join(openjlc_dir, 'workspace', 'Gerber')
     workflow_dir = os.path.join(openjlc_dir, 'workspace', 'workflow')
     report_file_path = os.path.join(openjlc_dir, 'workspace', 'report.yaml')
+    package_yaml_path = os.path.join(openjlc_dir, 'workspace', 'package.yaml')
 
     # 清空workflow目录
     if os.path.exists(workflow_dir):
@@ -90,6 +91,25 @@ def main():
         print(f"Report generated at {report_file_path}")
     except Exception as e:
         print(f"Error writing report: {e}")
+        return
+
+    # 读取package.yaml文件，删除源文件
+    if os.path.exists(package_yaml_path):
+        try:
+            with open(package_yaml_path, 'r', encoding='utf-8') as f:
+                package_data = yaml.safe_load(f)
+                original_file_path = os.path.join(package_data['original'], package_data['name'])
+
+            if os.path.exists(original_file_path):
+                os.remove(original_file_path)
+                print(f"Deleted original file: {original_file_path}")
+            else:
+                print(f"Original file not found: {original_file_path}")
+        except Exception as e:
+            print(f"Error reading or deleting original file: {e}")
+            return
+    else:
+        print(f"package.yaml not found at {package_yaml_path}")
         return
 
     # 执行package.py脚本

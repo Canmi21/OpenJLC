@@ -90,6 +90,28 @@ def main():
         print(f"Error: {unzip_script} not found.")
         sys.exit(1)
 
+    # 检查 PCB下单必读.txt 是否存在
+    pcb_must_read_file = os.path.join(gerber_dir, 'PCB下单必读.txt')
+    if os.path.exists(pcb_must_read_file):
+        print("Already LCEDA File.")
+        
+        # 执行clear.py脚本
+        clear_script_path = os.path.join(openjlc_dir, 'workspace', 'clear.py')
+        if os.path.exists(clear_script_path):
+            try:
+                subprocess.run(['python', clear_script_path], check=True)
+                print(f"Clear script executed successfully.")
+            except subprocess.CalledProcessError as e:
+                print(f"Error executing clear script: {e}")
+                sys.exit(1)
+        else:
+            print(f"Clear script {clear_script_path} not found.")
+        
+        sys.exit(0)  # 退出程序，不执行todo.py
+
+    else:
+        print(f"{pcb_must_read_file} not found, proceeding with todo.py execution.")
+
     # 执行todo.py脚本
     todo_script = os.path.join(openjlc_dir, 'workspace', 'todo.py')
     if os.path.exists(todo_script):

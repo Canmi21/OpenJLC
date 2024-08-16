@@ -3,6 +3,7 @@ import shutil
 import time
 import zipfile
 import yaml
+import subprocess
 
 def main():
     # 获取OpenJLC路径
@@ -99,6 +100,17 @@ def main():
     # 确保下次生成时不会出现重复问题
     os.remove(package_yaml)
     print(f"Deleted {package_yaml} to ensure it is recreated next time.")
+
+    # 执行clear.py脚本
+    clear_script_path = os.path.join(openjlc_dir, 'workspace', 'clear.py')
+    if os.path.exists(clear_script_path):
+        try:
+            subprocess.run(['python', clear_script_path], check=True)
+            print(f"Clear script executed successfully.")
+        except subprocess.CalledProcessError as e:
+            print(f"Error executing clear script: {e}")
+    else:
+        print(f"Clear script {clear_script_path} not found.")
 
 if __name__ == "__main__":
     main()
