@@ -4,7 +4,7 @@ Windows Registry Editor Version 5.00
 @="\"D:\\Desktop\\OpenJLC\\\""
 
 [HKEY_CLASSES_ROOT\SystemFileAssociations\.zip\shell\OpenJLC]
-@="Open with OpenJLC"
+@="OpenJLC"
 
 [HKEY_CLASSES_ROOT\SystemFileAssociations\.zip\shell\OpenJLC\command]
-@="\"D:\\Desktop\\OpenJLC\\OpenJLC--debug.EXE\" \"%1\""
+@="cmd /k \"python \"D:\\Desktop\\OpenJLC\\reg.py\" \"%1\" & pause\""
