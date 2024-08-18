@@ -2,6 +2,16 @@ import os
 import re
 import yaml
 import subprocess
+import sys  # 添加导入sys模块
+from datetime import datetime
+
+def log_message(message, log_file_path):
+    current_time = datetime.now().strftime('%H:%M:%S')
+    log_entry = f"{current_time} {message}"
+    print(log_entry)  # 输出到终端
+    with open(log_file_path, 'a', encoding='utf-8') as log_file:
+        log_file.write(log_entry + '\n')
+        log_file.flush()  # 确保每次写入后立即刷新
 
 def main():
     # 获取OpenJLC路径
@@ -9,6 +19,25 @@ def main():
     if not openjlc_dir:
         print("Error: OpenJLC environment variable is not set.")
         return
+
+    # 读取package.yaml文件中的日志文件路径
+    package_yaml_path = os.path.join(openjlc_dir, 'workspace', 'package.yaml')
+    if not os.path.exists(package_yaml_path):
+        print("Error: package.yaml not found.")
+        return
+
+    with open(package_yaml_path, 'r', encoding='utf-8') as package_file:
+        package_data = yaml.safe_load(package_file)
+        log_filename = package_data.get('logs')
+        if not log_filename:
+            print("Error: 'logs' field not found in package.yaml.")
+            return
+
+    # 设置日志文件路径
+    log_file_path = os.path.join(openjlc_dir, 'logs', log_filename)
+
+    # 记录日志开始
+    log_message("[identification.py] XC Logs start collecting.", log_file_path)
 
     # 解析identification.yaml文件
     identification_yaml_path = os.path.join(openjlc_dir, 'rule', 'identification.yaml')
@@ -35,8 +64,9 @@ def main():
                 f.write("#TargetEdge: Edge_Cuts\n")
                 f.write("#TargetEdge: GM1\n")
                 f.write("#TargetEdge: GM13\n")
+            log_message(f"Specified TargetEdge: {edge_config}", log_file_path)
         else:
-            print("Invalid Edge configuration specified.")
+            log_message("Invalid Edge configuration specified.", log_file_path)
             return
     else:
         # Auto模式下，查找文件
@@ -52,7 +82,7 @@ def main():
                 break
 
         if found_file:
-            print(f"Found edge file: {found_file}")
+            log_message(f"Found edge file: {found_file}", log_file_path)
 
             # 确定匹配的Edge类型
             if re.search(r'\.gm1', found_file, re.IGNORECASE):
@@ -72,7 +102,7 @@ def main():
                 f.write("#TargetEdge: Edge_Cuts\n")
                 f.write("#TargetEdge: GM1\n")
                 f.write("#TargetEdge: GM13\n")
-            print(f"Identified TargetEdge: {target_edge}")
+            log_message(f"Identified TargetEdge: {target_edge}", log_file_path)
 
             # 寻找EDA信息
             with open(found_file, 'r', encoding='utf-8') as f:
@@ -95,11 +125,11 @@ def main():
                     f.write("#EDA: Altium_Designer\n")
                     f.write("#EDA: KiCAD\n")
                     f.write("#EDA: LCEDA\n")
-                print(f"Identified EDA tool: {eda_tool}")
+                log_message(f"Identified EDA tool: {eda_tool}", log_file_path)
             else:
-                print("Could not identify EDA tool.")
+                log_message("Could not identify EDA tool.", log_file_path)
         else:
-            print("No matching edge file found.")
+            log_message("No matching edge file found.", log_file_path)
             return
 
     # 如果identification.yaml中的TargetEDA已经被指定
@@ -117,7 +147,13 @@ def main():
                 f.write("#EDA: Altium_Designer\n")
                 f.write("#EDA: KiCAD\n")
                 f.write("#EDA: LCEDA\n")
-            print(f"Specified EDA tool: {target_eda}")
+            log_message(f"Specified EDA tool: {target_eda}", log_file_path)
+
+    # 记录日志结束
+    log_message("[identification.py] XC Logs done.", log_file_path)
+
+    # 停止日志写入，恢复标准输出
+    sys.stdout = sys.__stdout__
 
     # 执行target.py脚本
     target_script_path = os.path.join(openjlc_dir, 'workspace', 'target.py')

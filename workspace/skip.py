@@ -4,32 +4,59 @@ import yaml
 import shutil
 from datetime import datetime
 import subprocess
+import sys  # 添加此行以导入 sys 模块
+
+def log_message(message, log_file_path):
+    current_time = datetime.now().strftime('%H:%M:%S')
+    log_entry = f"{current_time} {message}"
+    print(log_entry)  # 输出到终端
+    with open(log_file_path, 'a', encoding='utf-8') as log_file:
+        log_file.write(log_entry + '\n')
+        log_file.flush()  # 确保每次写入后立即刷新
 
 def main():
     # 获取OpenJLC路径
     openjlc_dir = os.environ.get("OpenJLC")
     if not openjlc_dir:
         print("Error: OpenJLC environment variable is not set.")
-        return
+        sys.exit(1)
+
+    # 读取package.yaml文件中的日志文件路径
+    package_yaml_path = os.path.join(openjlc_dir, 'workspace', 'package.yaml')
+    if not os.path.exists(package_yaml_path):
+        print("Error: package.yaml not found.")
+        sys.exit(1)
+
+    with open(package_yaml_path, 'r', encoding='utf-8') as package_file:
+        package_data = yaml.safe_load(package_file)
+        log_filename = package_data.get('logs')
+        if not log_filename:
+            print("Error: 'logs' field not found in package.yaml.")
+            sys.exit(1)
+
+    # 设置日志文件路径
+    log_file_path = os.path.join(openjlc_dir, 'logs', log_filename)
+
+    # 记录skip.py日志开始
+    log_message("[skip.py] XC Logs start collecting.", log_file_path)
 
     # 定义Gerber和workflow目录
     gerber_dir = os.path.join(openjlc_dir, 'workspace', 'Gerber')
     workflow_dir = os.path.join(openjlc_dir, 'workspace', 'workflow')
     report_file_path = os.path.join(openjlc_dir, 'workspace', 'report.yaml')
-    package_yaml_path = os.path.join(openjlc_dir, 'workspace', 'package.yaml')
 
     # 清空workflow目录
     if os.path.exists(workflow_dir):
         shutil.rmtree(workflow_dir)
     os.makedirs(workflow_dir)
-    print(f"Cleared and recreated workflow directory: {workflow_dir}")
+    log_message(f"Cleared and recreated workflow directory: {workflow_dir}", log_file_path)
 
     # 复制Gerber目录到workflow目录
     try:
         shutil.copytree(gerber_dir, workflow_dir, dirs_exist_ok=True)
-        print(f"Copied {gerber_dir} to {workflow_dir}")
+        log_message(f"Copied {gerber_dir} to {workflow_dir}", log_file_path)
     except Exception as e:
-        print(f"Error copying files: {e}")
+        log_message(f"Error copying files: {e}", log_file_path)
         return
 
     # 检查workflow目录中的文件并生成report.yaml
@@ -81,16 +108,16 @@ def main():
         for key, pattern in file_mapping.items():
             if re.search(pattern, file_name, re.IGNORECASE):
                 report_data[key] = 'Yes'
-                print(f"Matched {key} with file {file_name}")
+                log_message(f"Matched {key} with file {file_name}", log_file_path)
                 break
 
     # 保存报告到report.yaml
     try:
         with open(report_file_path, 'w', encoding='utf-8') as report_file:
             yaml.dump(report_data, report_file, default_flow_style=False, allow_unicode=True)
-        print(f"Report generated at {report_file_path}")
+        log_message(f"Report generated at {report_file_path}", log_file_path)
     except Exception as e:
-        print(f"Error writing report: {e}")
+        log_message(f"Error writing report: {e}", log_file_path)
         return
 
     # 读取package.yaml文件，删除源文件
@@ -102,15 +129,19 @@ def main():
 
             if os.path.exists(original_file_path):
                 os.remove(original_file_path)
-                print(f"Deleted original file: {original_file_path}")
+                log_message(f"Deleted original file: {original_file_path}", log_file_path)
             else:
-                print(f"Original file not found: {original_file_path}")
+                log_message(f"Original file not found: {original_file_path}", log_file_path)
         except Exception as e:
-            print(f"Error reading or deleting original file: {e}")
+            log_message(f"Error reading or deleting original file: {e}", log_file_path)
             return
     else:
-        print(f"package.yaml not found at {package_yaml_path}")
+        log_message(f"package.yaml not found at {package_yaml_path}", log_file_path)
         return
+
+    # 记录skip.py日志结束
+    log_message("[skip.py] XC Logs done.", log_file_path)
+    sys.stdout = sys.__stdout__  # 恢复标准输出
 
     # 执行package.py脚本
     package_script_path = os.path.join(openjlc_dir, 'workspace', 'package.py')
