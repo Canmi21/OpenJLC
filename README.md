@@ -39,6 +39,16 @@ Automatically convert mainstream Gerber files to JLC Gerber format
 
 ## Statement
 * 本项目起始于 [@acha666/FuckJLC](https://github.com/acha666/FuckJLC)
+* 本文中 `LCEDA`、`EasyEDA`、`JLC` 均属于深圳市嘉立创的注册版权
+* 本项禁止一切商用，滥用，以及改名分享和二次发布
+   
+由于本人精力有限，以及写的代码很垃圾只是勉强能用所以暂时只考虑以下场景：
+* 适配 `Windows x86` 平台
+* 适配 `Python 3.x` 平台
+* 适配 `Altium Designer`、`KiCAD` 
+
+如果你有好的想法或者有能力更新一定的内容，欢迎你提交 `Pull requests` 如果你发现有任何的问题，提问题的时候，请带着你的 `Logs` 在 `Issues` 清晰详细的说明问题的触发，以及如果你知道或者如何解决这个问题可以简明说明你的想法。任何有关无法运行的问题如果我特别说明了的地方再提交 `Issues` 将会被我直接关闭，请勿灌水!
+
 
 ## Usage
 
