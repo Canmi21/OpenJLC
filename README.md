@@ -54,9 +54,34 @@ Automatically convert mainstream Gerber files to JLC Gerber format
 起初我想的是只用 `Python 2.x` 甚至还随手写了一个 [`Python2.ps1`](https://github.com/Canmi21/OpenJLC/blob/main/python/install_python2.ps1) 用于自动安装，然后我放弃了( ) 那也正好给想要使用 `OpenJLC` 的人提供了一个小小的门槛，请自行配置好 `Python 3.x` 以及环境变量后再继续
 
 ### Install pip
-`pip` 也自己研究如何安装去，同样的我写了一个不会再维护的安装脚本 [`pip.ps1`](https://github.com/Canmi21/OpenJLC/blob/main/pip/get-pip.ps1) 
+`pip` 也自己研究如何安装去，同样的我写了一个不会再维护的安装脚本 [`pip.ps1`](https://github.com/Canmi21/OpenJLC/blob/main/pip/get-pip.ps1) 如果哪天它不能用了，也不要指望我会更新
 
 ### Install Requitrment
+`pyyaml` 是本项目的核心前置，它用于让 `OpenJLC` 可以读取 `.yaml` 格式的文本信息
 ``` shell
 pip install pyyaml
 ```
+
+### Environment Variable
+这里使用的是 `Windows11 Pro` 首先打开你的电脑右键，然后选择 `Properties` 后在左上角点击 `Advanced system settings` 之后在靠近底部的位置找到 `Environment Variables...` 然后在 `User Variables` 的位置添加一条新的 `OpenJLC` 记录   
+例示：(请注意根据实际情况调整)
+* `Variable`: `OpenJLC` 
+* `Value`: `D:\Desktop\OpenJLC\`
+
+### Edit Regedit
+首先打开 [`OpenJLC.reg`](https://github.com/Canmi21/OpenJLC/blob/main/config/OpenJLC.reg) 或者 [`OpenJLC--nogui.reg`](https://github.com/Canmi21/OpenJLC/blob/main/config/OpenJLC--nogui.reg) 两者的区别在于有无调试的命令行，个人推荐平时使用 `--nogui` 版本，需要日志的话可以在 `Logs` 中匹配到详细的处理过程
+
+``` shell
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\OpenJLC]
+@="\"D:\\Desktop\\OpenJLC\\\""
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.zip\shell\OpenJLC]
+@="Open with OpenJLC"
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.zip\shell\OpenJLC\command]
+@="\"D:\\Desktop\\OpenJLC\\OpenJLC.EXE\" \"%1\""
+
+```
+注意修改这里的 `D:\\Desktop\\OpenJLC\\` 为你实际部署 `OpenJLC` 的根目录，你需要确保这个目录拥有正确的读写权限以及与上述 `User Variables` 中的路径一致，这里的 `Open with OpenJLC` 是你后续在右键任意 `.zip` 文件的时候所展示的信息
