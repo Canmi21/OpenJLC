@@ -84,4 +84,27 @@ Windows Registry Editor Version 5.00
 @="\"D:\\Desktop\\OpenJLC\\OpenJLC.EXE\" \"%1\""
 
 ```
-注意修改这里的 `D:\\Desktop\\OpenJLC\\` 为你实际部署 `OpenJLC` 的根目录，你需要确保这个目录拥有正确的读写权限以及与上述 `User Variables` 中的路径一致，这里的 `Open with OpenJLC` 是你后续在右键任意 `.zip` 文件的时候所展示的信息
+注意修改这里的 `D:\\Desktop\\OpenJLC\\` 为你实际部署 `OpenJLC` 的根目录，你需要确保这个目录拥有正确的读写权限以及与上述 `User Variables` 中的路径一致，这里的 `Open with OpenJLC` 是你后续在右键任意 `.zip` 文件的时候所展示的信息。此外为了能够正确的卸载修改的注册表以及右键菜单，你可以使用 [`Uninstall.EXE`](https://github.com/Canmi21/OpenJLC/blob/main/config/Uninstall_OpenJLC.EXE)
+
+## About
+有关于本项目中所有打包的 `.EXE` 文件都使用了 `Canmi@Xyy` 类的签名，使用 `SHA256` 加密，虽然可以一定程度的避免被微软自带的防火墙清除掉，但是如果你的电脑还是自动清除了再核对下载文件的 `SHA256` 或者 `MD5` 值一致后请忽略风险警告，本项项目承诺所有文件开源免费，如果您好奇 `Package` 中的内容，请仔细查阅源码 
+   
+[`Uninstall.EXE`](https://github.com/Canmi21/OpenJLC/blob/main/config/Uninstall_OpenJLC.EXE) `7948711308bd8ba1415d43bfa6fb918d05102f9995a76ebb44b0daa67e057c68`   
+[`OpenJLC.EXE`](https://github.com/Canmi21/OpenJLC/blob/main/OpenJLC.EXE) `67e9262565f82053733b7f569a17937b16365e9d68d5943201a10e47f9d36f88`   
+[`OpenJLC--debug.EXE`](https://github.com/Canmi21/OpenJLC/blob/main/OpenJLC--debug.EXE) `1582804281ca816309a14ece430a7a526ee32228489de8dd5420129e11626c6d`   
+
+您可以在 `PowerShell` 中使用 `certutil` 命令查询 `SHA256`
+``` shell
+certutil -hashfile OpenJLC.EXE  SHA256
+```
+
+从终端中得到的执行结果应该像这样:
+``` shell
+SHA256 hash of OpenJLC.EXE:
+67e9262565f82053733b7f569a17937b16365e9d68d5943201a10e47f9d36f88
+CertUtil: -hashfile command completed successfully.
+```
+  
+有关于本项目的更多资源，例如 `Demo`、`Instruction Manual` 和 `Development guide` 近几日将会在我的 `Blog` 内更新，介时我会更新超链接到这里，最后如果喜欢这个项目请给我点一个 `Star`
+
+## Acknowledgements
