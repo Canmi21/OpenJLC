@@ -108,3 +108,6 @@ CertUtil: -hashfile command completed successfully.
 有关于本项目的更多资源，例如 `Demo`、`Instruction Manual` 和 `Development guide` 近几日将会在我的 `Blog` 内更新，介时我会更新超链接到这里，最后如果喜欢这个项目请给我点一个 `Star`
 
 ## Acknowledgements
+### * [XiangYang](https://github.com/XiangYyang)
+### * [Acha](https://github.com/acha666)
+### You
