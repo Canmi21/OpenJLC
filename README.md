@@ -49,9 +49,14 @@ Automatically convert mainstream Gerber files to JLC Gerber format
 
 如果你有好的想法或者有能力更新一定的内容，欢迎你提交 `Pull requests` 如果你发现有任何的问题，提问题的时候，请带着你的 `Logs` 在 `Issues` 清晰详细的说明问题的触发，以及如果你知道或者如何解决这个问题可以简明说明你的想法。任何有关无法运行的问题如果我特别说明了的地方再提交 `Issues` 将会被我直接关闭，请勿灌水!
 
-
 ## Usage
+### Install Python 3.x
+起初我想的是只用 `Python 2.x` 甚至还随手写了一个 [`Python2.ps1`](https://github.com/Canmi21/OpenJLC/blob/main/python/install_python2.ps1) 用于自动安装，然后我放弃了( ) 那也正好给想要使用 `OpenJLC` 的人提供了一个小小的门槛，请自行配置好 `Python 3.x` 以及环境变量后再继续
 
+### Install pip
+`pip` 也自己研究如何安装去，同样的我写了一个不会再维护的安装脚本 [`pip.ps1`](https://github.com/Canmi21/OpenJLC/blob/main/pip/get-pip.ps1) 
+
+### Install Requitrment
 ``` shell
 pip install pyyaml
 ```
