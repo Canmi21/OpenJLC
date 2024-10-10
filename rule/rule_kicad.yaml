@@ -1,14 +1,20 @@
- Outline1: -Edge_Cuts
- Outline2: (\.gm1|\.GM1)$
- Top_Cu: -F_Cu
- Bottom_Cu: -B_Cu
- InnerLayer1_Cu: -In1_Cu
- InnerLayer2_Cu: -In2_Cu
- InnerLayer3_Cu: -In3_Cu
- InnerLayer4_Cu: -In4_Cu
- Top_SilkScreen: -F_Silkscreen
- Bottom_SilkScreen: -B_Silkscreen
- Top_SolderMask: -F_Mask
- Bottom_SolderMask: -B_Mask
- Top_SolderPaste: -F_Paste
- Bottom_SolderPaste: -B_Paste
+Outline1: -Edge_Cuts
+Outline2: (\.gm1|\.GM1)$
+Top_Cu: -F_Cu
+Bottom_Cu: -B_Cu
+InnerLayer1_Cu: -In1_Cu
+InnerLayer2_Cu: -In2_Cu
+InnerLayer3_Cu: -In3_Cu
+InnerLayer4_Cu: -In4_Cu
+Top_SilkScreen: -F_Silkscreen
+Bottom_SilkScreen: -B_Silkscreen
+Top_SolderMask: -F_Mask
+Bottom_SolderMask: -B_Mask
+Top_SolderPaste: -F_Paste
+Bottom_SolderPaste: -B_Paste
+PTH: '.*(?<![Nn])[Pp][Tt][Hh].*\.[Dd][Rr][Ll]$'
+PTH_Via: '.*[Vv][Ii][Aa].*\.[Dd][Rr][Ll]$'
+NPTH: '.*[Nn][Pp][Tt][Hh].*\.[Dd][Rr][Ll]$'
+PTH_GBR: '.*(?<![Nn])[Pp][Tt][Hh].*\.[Gg][Bb][Rr]$'
+PTH_Via_GBR: '.*[Vv][Ii][Aa].*\.[Gg][Bb][Rr]$'
+NPTH_GBR: '.*[Nn][Pp][Tt][Hh].*\.[Gg][Bb][Rr]$'
