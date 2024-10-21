@@ -1,7 +1,7 @@
 # Open-JLC
 Automatically convert mainstream Gerber files to JLC Gerber format
 
-#### 核心部分已经完成，你可以现在查看源码运行或者等待我完善教程
+#### 核心部分已经完成，你可以现在查看源码运行
 
 ## Introduce
 #### OpenJLC 适合什么人用?
